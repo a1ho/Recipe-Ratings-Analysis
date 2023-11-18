@@ -37,6 +37,8 @@ Also, the columns from the `raw_interactions` dataset that are of interest to us
 ## Cleaning and EDA
 
 
+#### 6. Cleaned DataFrames
+Here are the first 5 rows of the cleaned `recipes` DataFrame:
 
 |     id |   contributor_id | name                                  |   minutes |   calories |   total_fat |   sugar |   sodium |   protein |   saturated_fat |   carbohydrates |   n_ingredients |   n_steps |   mean_rating |   n_review |
 |-------:|-----------------:|:--------------------------------------|----------:|-----------:|------------:|--------:|---------:|----------:|----------------:|----------------:|----------------:|----------:|--------------:|-----------:|
@@ -48,6 +50,7 @@ Also, the columns from the `raw_interactions` dataset that are of interest to us
 
 
 
+Here are the first 5 rows of the cleaned `merged` DataFrame:
 
 |     id | name                                 | description             |   minutes |   calories |   total_fat |   sugar |   sodium |   protein |   saturated_fat |   carbohydrates |   n_ingredients |   n_steps |   rating | review                  |
 |-------:|:-------------------------------------|:------------------------|----------:|-----------:|------------:|--------:|---------:|----------:|----------------:|----------------:|----------------:|----------:|---------:|:------------------------|
