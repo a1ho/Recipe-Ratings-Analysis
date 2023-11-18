@@ -1,4 +1,4 @@
-## Recipe Ratings Analysis 🍱
+# Recipe Ratings Analysis 🍱
 
 Authors: Ashley Ho & Mizuho Fukuda
 <br/>
@@ -9,7 +9,7 @@ Course: DSC80 Project 3
 Website: https://a1ho.github.io/Recipe-Ratings-Analysis/
 
 ## Introduction 
-In the vast realm of culinary ..... ; We explore this central question:
+In the vast realm of culinary ... ; We explore this central question:
 > Do people tend to try recipes with lower saturated fat content more often than recipes with higher saturated fat content?
 >
 
