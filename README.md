@@ -7,6 +7,9 @@
 <br/>
 
 **Website**: <https://a1ho.github.io/Recipe-Ratings-Analysis/>
+<br/>
+
+**GitHub**: <https://github.com/a1ho/Recipe-Ratings-Analysis>
 
 ## Introduction 
 In the vast realm of culinary ... ; We explore this central question:
@@ -114,14 +117,13 @@ Here is the plot of the results from our permutation test using 2000 permutation
 We get a p-value of 0.0, which is lower than the significance level 0.05, and therefore we reject the null hypothesis. As such, we can conclude that the missingness in the `'rating'` column is dependent on the `'saturated_fat'` column. In other words, **we conclude that ratings is MAR, conditional on saturated fat**.
 
 #### 2. Rating and Minutes
-For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
+For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the absolute difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
 - **Null Hypothesis**: The minutes for recipes with missing ratings and recipes with non-missing ratings are drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) = 0).
-- **Alternate Hypothesis**: The mean minutes for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
+- **Alternate Hypothesis**: The minutes for recipes with missing ratings and recipes with non-missing ratings are not drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) != 0).
 
 Here is the plot of the results from our permutation test using 2000 permutations:
 <iframe src="assets/missing_rating_min_perm.html" width=800 height=600 frameBorder=0></iframe>
 
 We get a p-value of 0.1205, which is greater than the significance level 0.05, and therefore we fail to reject the null hypothesis. As such, we cannot conclude that the missingness in the `'rating'` column is dependent on the `'minutes'` column. In other words, **we conclude that ratings is MCAR with respect to the minutes**.
-
 
 ## Hypothesis Testing
