@@ -42,7 +42,7 @@ The `recipes` DataFrame contains one row per recipe, and the `interactions` data
 #### 2. Add Average Ratings
 From `merged` we calculate the average `rating` for each recipe in the DataFrame. Before doing so, we replace all ratings of 0 with `np.nan` since a rating of 0 may acutually mean that the rating is missing if a reviewer forget to add a rating at the end of their review. Thus, we replace with `np.nan` to ensure that when calculating the average rating, we do not factor in missing ratings as a rating of 0. Then, we add these average ratings as a new column `mean_rating` to the `recipes` DataFrame.
 #### 3. Add Number of Reviews
-For our research question, we focus on the 'popularity' of a recipe. For the purposes of this project, we categorize a recipe's popularity by looking at how many reviews it receives, since we reason that recipes with more number of reviews have reached a wider audience, and hence are more popular. We used the `merged` DataFrame to calculate the number of reviews a recipe receives and add these values as a new column `n_reviews` to the `recipes` DataFrame.
+For our research question, we focus on the popularity of a recipe. For the purposes of this project, we categorize a recipe's popularity by looking at how many reviews it receives, since we reason that recipes with more number of reviews have reached a wider audience, and hence are more popular. We used the `merged` DataFrame to calculate the number of reviews a recipe receives and add these values as a new column `n_reviews` to the `recipes` DataFrame.
 #### 4. Seperate `'nutrition'` Column 
 After checking the data types of the columns, we notice that the `'nutrition'` column, which is present in both `recipes` and `merged`, actually contains strings that are formatted as lists instead of actual lists. For both DataFrames, we separate the values in the `'nutrition'` column into seperate these seperate columns: `'calories'`, `total_fat`, `sugar`, `sodium`, `'protein'`, `'saturated_fat'`, and `'carbohydrates'`. We note that all these values are in PDV units, or percentage of daily value.
 #### 5. Drop and Sort Columns
@@ -96,6 +96,7 @@ The histogram below shows the trend of average `minutes` when grouped by `n_ingr
 <iframe src="assets/ingredients_minutes_line.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness
+<<<<<<< HEAD
 We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
 |               |     0 |
 |:--------------|------:|
@@ -116,11 +117,16 @@ We used the `merged` DataFrame for the entirety of this section. Here is the cou
 | review        |    58 |
 
 ### NMAR Analysis
+=======
+We used the `merged` DataFrame for the entirety of this section. Here is the count of missingness in the columns of `merged`:
+....
+### **NMAR Analysis**
 We believe that the `'description'` column is NMAR because perhaps certain recipes do not have much to descibe, and therefore are left blank. For example, recipes for foods such as cookies or hot chocolate may not require much of an explanation, and thus their recipes are note accompanied by a description. We can collect data on how common each food item is, since we believe that more popular/well-known dishes may not need a description while more uncommon foods, like those that are specific to a culture, may be more likely to require a description.
 
-### Missingness Dependency
+### **Missingness Dependency**
 From the missingness summary above, we notice that the `'rating'` column has a substantial amount of missing values as compared to the `'description'` and `'review'` columns. In this section, we conduct two separate permutation tests to analyze the dependence of the `'rating'` column's missingness on the `'saturated_fat'` column and the `'minutes'` column.
-#### `'rating'` and `'saturated_fat'`
+
+#### 1. Rating and Saturated Fat
 
 <iframe src="assets/fat_missing_box.html" width=800 height=600 frameBorder=0></iframe>
 
@@ -129,12 +135,11 @@ The above plot shows the distribtuion of the `'saturated_fat'` column for missin
 - **Alternate Hypothesis**: The mean saturated fat for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
 
 Here is the plot of the results from our permutation test using 2000 permutations:
-....
+<iframe src="assets/missing_rating_fat_perm.html" width=800 height=600 frameBorder=0></iframe>
 
-We get a p-value of 0.0, which is lower than the significance level 0.05, and therefore we reject the null hypothesis. As such, we **can conclude** that the missingness in the `'rating'` column is dependent on the `'saturated_fat'` column. In other words, **we conclude that the ratings is MAR, conditional on saturated fat**.
+We get a p-value of 0.0, which is lower than the significance level 0.05, and therefore we reject the null hypothesis. As such, we can conclude that the missingness in the `'rating'` column is dependent on the `'saturated_fat'` column. In other words, **we conclude that ratings is MAR, conditional on saturated fat**.
 
-#### `'rating'` and `'minutes'`
-
+#### 2. Rating and Minutes
 <iframe src="assets/min_missing_box.html" width=800 height=600 frameBorder=0></iframe>
 
 The above plot shows the distribtuion of the `'minutes'` column for missing and non-missing `'rating'`. For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
@@ -142,9 +147,9 @@ The above plot shows the distribtuion of the `'minutes'` column for missing and 
 - **Alternate Hypothesis**: The mean minutes for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
 
 Here is the plot of the results from our permutation test using 2000 permutations:
-....
+<iframe src="assets/missing_rating_min_perm.html" width=800 height=600 frameBorder=0></iframe>
 
-We get a p-value of 0.1205, which is greater than the significance level 0.05, and therefore we fail to reject the null hypothesis. As such, we **cannot conclude** that the missingness in the `'rating'` column is dependent on the `'minutes'` column. In other words, **we conclude that the ratings is MCAR with resepct to the minutes**.
+We get a p-value of 0.1205, which is greater than the significance level 0.05, and therefore we fail to reject the null hypothesis. As such, we cannot conclude that the missingness in the `'rating'` column is dependent on the `'minutes'` column. In other words, **we conclude that ratings is MCAR with respect to the minutes**.
 
 
 ## Hypothesis Testing
