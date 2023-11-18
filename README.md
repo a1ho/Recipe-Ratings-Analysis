@@ -96,7 +96,6 @@ The histogram below shows the trend of average `minutes` when grouped by `n_ingr
 <iframe src="assets/ingredients_minutes_line.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness
-<<<<<<< HEAD
 We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
 |               |     0 |
 |:--------------|------:|
@@ -116,10 +115,6 @@ We used the `merged` DataFrame for the entirety of this section. Here is the cou
 | rating        | 15036 |
 | review        |    58 |
 
-### NMAR Analysis
-=======
-We used the `merged` DataFrame for the entirety of this section. Here is the count of missingness in the columns of `merged`:
-....
 ### **NMAR Analysis**
 We believe that the `'description'` column is NMAR because perhaps certain recipes do not have much to descibe, and therefore are left blank. For example, recipes for foods such as cookies or hot chocolate may not require much of an explanation, and thus their recipes are note accompanied by a description. We can collect data on how common each food item is, since we believe that more popular/well-known dishes may not need a description while more uncommon foods, like those that are specific to a culture, may be more likely to require a description.
 
