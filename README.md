@@ -1,5 +1,4 @@
-title: Recipe Ratings Analysis 🍱
----
+## Recipe Ratings Analysis 🍱
 
 Authors: Ashley Ho & Mizuho Fukuda
 <br/>
@@ -13,7 +12,6 @@ Website: https://a1ho.github.io/Recipe-Ratings-Analysis/
 In the vast realm of culinary ..... ; We explore this central question:
 > Do people tend to try recipes with lower saturated fat content more often than recipes with higher saturated fat content?
 >
-<br/>
 
 This research question seeks to explore whether individuals are concious about making healthy food choices when deciding on which recipes to try out. In essence, we are investigating whether recipes containing lower saturated fat contents are more popular amongst the general public than recipes higher in saturated fat. This research question may be of interest to people studying dietary habits and could provide insights into the factors influencing food choices in the ever-evolving landscape of nutrition and wellness.
 <br/>
