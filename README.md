@@ -96,15 +96,35 @@ The histogram below shows the trend of average `minutes` when grouped by `n_ingr
 <iframe src="assets/ingredients_minutes_line.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness
-We used the `merged` DataFrame for the entirety of this section. Here is the summary of the missingness in the columns of `merged`:
-....
+We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
+|               |     0 |
+|:--------------|------:|
+| id            |     0 |
+| name          |     1 |
+| description   |   114 |
+| minutes       |     0 |
+| calories      |     0 |
+| total_fat     |     0 |
+| sugar         |     0 |
+| sodium        |     0 |
+| protein       |     0 |
+| saturated_fat |     0 |
+| carbohydrates |     0 |
+| n_ingredients |     0 |
+| n_steps       |     0 |
+| rating        | 15036 |
+| review        |    58 |
+
 ### NMAR Analysis
 We believe that the `'description'` column is NMAR because perhaps certain recipes do not have much to descibe, and therefore are left blank. For example, recipes for foods such as cookies or hot chocolate may not require much of an explanation, and thus their recipes are note accompanied by a description. We can collect data on how common each food item is, since we believe that more popular/well-known dishes may not need a description while more uncommon foods, like those that are specific to a culture, may be more likely to require a description.
 
 ### Missingness Dependency
 From the missingness summary above, we notice that the `'rating'` column has a substantial amount of missing values as compared to the `'description'` and `'review'` columns. In this section, we conduct two separate permutation tests to analyze the dependence of the `'rating'` column's missingness on the `'saturated_fat'` column and the `'minutes'` column.
 #### `'rating'` and `'saturated_fat'`
-For this permutation test we analyze if there is dependency between the missingness of the ratings and the saturated fat content. We use the difference in group means as our test statistic, as `'saturated_fat'` is numerical. For this test, we have the following:
+
+<iframe src="assets/fat_missing_box.html" width=800 height=600 frameBorder=0></iframe>
+
+The above plot shows the distribtuion of the `'saturated_fat'` column for missing and non-missing `'rating'`. For this permutation test we analyze if there is dependency between the missingness of the ratings and the saturated fat content. We use the difference in group means as our test statistic, as `'saturated_fat'` is numerical. For this test, we have the following:
 - **Null Hypothesis**: The saturated fat for recipes with missing ratings and recipes with non-missing ratings are drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) = 0).
 - **Alternate Hypothesis**: The mean saturated fat for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
 
@@ -114,7 +134,10 @@ Here is the plot of the results from our permutation test using 2000 permutation
 We get a p-value of 0.0, which is lower than the significance level 0.05, and therefore we reject the null hypothesis. As such, we **can conclude** that the missingness in the `'rating'` column is dependent on the `'saturated_fat'` column. In other words, **we conclude that the ratings is MAR, conditional on saturated fat**.
 
 #### `'rating'` and `'minutes'`
-For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
+
+<iframe src="assets/min_missing_box.html" width=800 height=600 frameBorder=0></iframe>
+
+The above plot shows the distribtuion of the `'minutes'` column for missing and non-missing `'rating'`. For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
 - **Null Hypothesis**: The minutes for recipes with missing ratings and recipes with non-missing ratings are drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) = 0).
 - **Alternate Hypothesis**: The mean minutes for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
 
@@ -125,3 +148,11 @@ We get a p-value of 0.1205, which is greater than the significance level 0.05, a
 
 
 ## Hypothesis Testing
+
+<iframe src="assets/popularity_box.html" width=800 height=600 frameBorder=0></iframe>
+
+- **Null Hypothesis**:
+- **Alternate Hypothesis**:
+
+Here is the plot of the results from our permutation test using 10,000 permutations:
+<iframe src="assets/hyp_test.html" width=800 height=600 frameBorder=0></iframe>
