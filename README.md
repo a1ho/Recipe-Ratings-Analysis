@@ -3,7 +3,7 @@
 Authors: Ashley Ho & Mizuho Fukuda
 <br/>
 
-Course: DSC80 Project 3
+Course: DSC80 Project 3!
 <br/>
 
 Website: https://a1ho.github.io/Recipe-Ratings-Analysis/
