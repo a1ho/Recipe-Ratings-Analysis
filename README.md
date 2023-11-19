@@ -88,10 +88,10 @@ We also looked at the distribution of the `'mean_rating'` column. It shows that 
 
 #### 2. Bivariate Distributions
 The scatter plot below shows the `'mean_rating'` column vs. the `'calories'` column. Due to the extremely negatively skewed mean ratings, we cannot conclude any meaningful correlation between `'mean_rating'` and `'calories'`. We also noticed some outliers in `'calories'`, which may also be a result of fake recipes like the one mentioned in the above section so we temporarily dropped rows with calories above 20,000 for a better understanding of the relationship.
-<iframe src="assets/rating_cal_scatter.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/rating_fat_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
 This second scatterplot shows the `'calories'` column vs. the `'n_steps'` column. As with the previous plot, we ignored rows with calories above 20,000. Contrary to our intuition, recipes with more steps tend to have lower calories. This could still be due to the impact of outliers as there are many recipes with abnormally large calories.
-<iframe src="assets/step_cal_scatter.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/step_fat_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
 Here we see the conditional distribution of `'mean_rating'` for higher vs. lower calories. Again, for the sake of the analysis, we ignore all rows with calories higher than 20,000. We define "low calories" as calories lower than the median and "high calories" as higher than the median. We see that while the mean rating in both categories are still overwhemingly positive, recipes with lower calories seem to have a larger varience in mean rating. This can be seen in the isolated blue bars around mean ratings of 1 - 3. We hypothesize that since the 'fake' recipes tend to have extreme calories, the recipes with lower calories are probably more legitimate, and thus have more meaningful ratings.
 
@@ -105,23 +105,23 @@ The histogram below shows the trend of average `'minutes'` when grouped by `'n_i
 ## Assessment of Missingness
 We use the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
 
-|               |     0 |
-|:--------------|------:|
-| id            |     0 |
-| name          |     1 |
-| description   |   114 |
-| minutes       |     0 |
-| calories      |     0 |
-| total_fat     |     0 |
-| sugar         |     0 |
-| sodium        |     0 |
-| protein       |     0 |
-| saturated_fat |     0 |
-| carbohydrates |     0 |
-| n_ingredients |     0 |
-| n_steps       |     0 |
-| rating        | 15036 |
-| review        |    58 |
+|               |   n_missing |
+|:--------------|------------:|
+| id            |           0 |
+| name          |           1 |
+| description   |         114 |
+| minutes       |           0 |
+| calories      |           0 |
+| total_fat     |           0 |
+| sugar         |           0 |
+| sodium        |           0 |
+| protein       |           0 |
+| saturated_fat |           0 |
+| carbohydrates |           0 |
+| n_ingredients |           0 |
+| n_steps       |           0 |
+| rating        |       15036 |
+| review        |          58 |
 
 ### **NMAR Analysis**
 We believe that the `'description'` column is NMAR because perhaps certain recipes do not have much to descibe, and therefore are left blank. For example, recipes for foods such as cookies or hot chocolate may not require much of an explanation, and thus their recipes are note accompanied by a description. We can collect data on how common each food item is, since we believe that more popular/well-known dishes may not need a description while more uncommon foods, like those that are specific to a culture, may be more likely to require a description.
