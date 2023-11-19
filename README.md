@@ -100,6 +100,7 @@ The histogram below shows the trend of average `'minutes'` when grouped by `'n_i
 
 ## Assessment of Missingness
 We use the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
+
 |               |     0 |
 |:--------------|------:|
 | id            |     0 |
