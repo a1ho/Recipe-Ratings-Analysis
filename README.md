@@ -12,7 +12,9 @@
 **GitHub**: <https://github.com/a1ho/Recipe-Ratings-Analysis>
 
 ## Introduction 
-In the vast realm of culinary ... ; We explore this central question:
+As nutritional science has become increasingly mainstream, more and more people are making conscious decisions to incorporate healthier diets when cooking at home. With so much information surrounding nutrition, what factors do we need to consider when choosing recipes that are both healthy and tasty? One major food content that a lot of people are concerned with is saturated fat, which is a kind of fat that is typically considered unhealthy and has been associated with heart and circulatory disease.
+
+In this study, we explore this central question:
 > Are recipes that are lower in saturated fat content more popular than recipes that are higher in saturated fat content?
 >
 
@@ -43,13 +45,15 @@ Also, the columns from the `interactions` dataset that are of interest to us thr
 #### 1. Merge DataFrames
 The `recipes` DataFrame contains one row per recipe, and the `interactions` dataframe contains one row per review of a recipe. The `id` column in `recipes` and the `recipe_id` columns in `interactions` are common columns, and thus we merge the two DataFrames using a left merge on `recipes`. This results in a DataFrame `merged` with one row per review of every recipe that appears in `recipes`.
 #### 2. Add Average Ratings
-From `merged` we calculate the average `rating` for each recipe in the DataFrame. Before doing so, we replace all ratings of 0 with `np.nan` since a rating of 0 may acutually mean that the rating is missing if a reviewer forget to add a rating at the end of their review. Thus, we replace with `np.nan` to ensure that when calculating the average rating, we do not factor in missing ratings as a rating of 0. Then, we add these average ratings as a new column `mean_rating` to the `recipes` DataFrame.
+From `merged` we calculate the average `'rating'` for each recipe in the DataFrame. Before doing so, we replace all ratings of 0 with `np.nan` since a rating of 0 may acutually mean that the rating is missing if a reviewer forget to add a rating at the end of their review. Thus, we replace with `np.nan` to ensure that when calculating the average rating, we do not factor in missing ratings as a rating of 0. Then, we add these average ratings as a new column `'mean_rating'` to the `recipes` DataFrame.
 #### 3. Add Number of Reviews
-For our research question, we focus on the popularity of a recipe. For the purposes of this project, we categorize a recipe's popularity by looking at how many reviews it receives, since we reason that recipes with more number of reviews have reached a wider audience, and hence are more popular. We used the `merged` DataFrame to calculate the number of reviews a recipe receives and add these values as a new column `n_reviews` to the `recipes` DataFrame.
+For our research question, we focus on the popularity of a recipe. For the purposes of this project, we categorize a recipe's popularity by looking at how many reviews it receives, since we reason that recipes with more number of reviews have reached a wider audience, and hence are more popular. We used the `merged` DataFrame to calculate the number of reviews a recipe receives and add these values as a new column `'n_reviews'` to the `recipes` DataFrame.
 #### 4. Seperate `'nutrition'` Column 
-After checking the data types of the columns, we notice that the `'nutrition'` column, which is present in both `recipes` and `merged`, actually contains strings that are formatted as lists instead of actual lists. For both DataFrames, we separate the values in the `'nutrition'` column into seperate these seperate columns: `'calories'`, `total_fat`, `sugar`, `sodium`, `'protein'`, `'saturated_fat'`, and `'carbohydrates'`. We note that all these values are in PDV units, or percentage of daily value.
-#### 5. Drop and Sort Columns
-For the purposes of our analysis, we drop the `'...'` columns from `recipes` and the `'...'` columns from `merged`. We also sort the `recipes` DataFrame by `id` for organizational purposes.
+After checking the data types of the columns, we notice that the `'nutrition'` column, which is present in both `recipes` and `merged`, actually contains strings that are formatted as lists instead of actual lists. For both DataFrames, we separate the values in the `'nutrition'` column into seperate these seperate columns: `'calories'`, `'total_fat'`, `'sugar'`, `'sodium'`, `'protein'`, `'saturated_fat'`, and `'carbohydrates'`. We note that all these values are in PDV units, or percentage of daily value.
+#### 5. Condense Columns with Long Strings
+Since the information in the `'review'` and `'description'` columns are not relevant to our analysis (except for their missingness), we condensed the long strings into only the first 20 characters for a better view of the DataFrame.
+#### 6. Drop and Sort Columns
+For the purposes of our analysis, we only kept the `'id'`, `'name'`, `'minutes'`, `'n_ingredients'`, `'n_steps'`, `'mean_rating'` (`'rating'` in `merged`), `'n_reviews'` (`'review'` in `merged`) and all the nutrition columns for both DataFrames `recipes` and `merged`. We also sort the `recipes` DataFrame by `id` for organizational purposes.
 #### 6. Cleaned DataFrames
 Here are the first 5 rows of the cleaned `recipes` DataFrame:
 
@@ -100,6 +104,7 @@ The histogram below shows the trend of average `minutes` when grouped by `n_ingr
 
 ## Assessment of Missingness
 We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
+
 |               |     0 |
 |:--------------|------:|
 | id            |     0 |
@@ -154,6 +159,7 @@ We get a p-value of 0.1205, which is greater than the significance level 0.05, a
 Now we return to our research question: 
 > Are recipes that are lower in saturated fat content more popular than recipes that are higher in saturated fat content?
 >
+
 Note that we use the `recipes` DataFrame for entirety of this section, specifically the `'n_reviews'` and `'saturated_fat'` columns. For the purposes of this analysis, we define a recipe to be popular if it has received more than the median number of reviews and recipes with less than the median number of reviews are categorized as unpopular; we add this categorization to `recipies` in a new column called `popularity`. We choose to use the number of reviews as a gauge for the popularity of a recipe instead of the mean rating because the ratings in this dataset are overwhelmingly high, and hence we believe that the mean ratings would not provide us with meaningful results for our question of interest because there is not much variability. The number of reviews allows us to estimate the number of people who attempted to make a specific recipe and we assume that most people evaluate the nutritional information when choosing which recipes to try. Thus, we say that the number of reviews is likely an accurate estimate of a recipe's popularity. Note that in this context, popularity does not equate to a positive review of a recipe, just the number of people attempted it.  
 
 Here is a boxplot of the distribution of saturated fat for popular versus unpopular recipes:
