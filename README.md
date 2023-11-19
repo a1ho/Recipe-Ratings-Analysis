@@ -76,30 +76,30 @@ Here are the first 5 rows of the cleaned `merged` DataFrame:
 
 ### **EDA**
 #### 1. Univariate Distributions
-Here we plotted the distribution of the `minutes` column. Notice that we temporarily dropped all minutes greater than 600 to have a better view of the plot. When exploring the `minutes` column, we found a recipe with more than 1 million minutes of cooking time titled _'how to preserve a husband'_. We think that many of the extreme outliers are likely caused by fake recipes like this one. Dropping these outliers temporarily did not affect our analysis here since only about 1% of the data has minutes great than 600. We see that most recipes have a cooking time of under 60 minutes, with 30 minutes being the most common. 
+Here we plotted the distribution of the `minutes` column. We temporarily dropped all recipes with values in the `'minutes'` column greater than 600 to have a better view of the plot. When exploring the `'minutes'` column, we found a recipe with more than 1 million minutes of cooking time titled _'how to preserve a husband'_. We think that many of the extreme outliers are likely caused by fake recipes like this one. Dropping these outliers temporarily did not affect our analysis here since only about 1% of the recipes have a cooking time of more than 600 minutes. We see that most recipes have a cooking time of under 60 minutes, with 30 minutes being the most common. 
 <iframe src="assets/minutes_hist.html" width=800 height=600 frameBorder=0></iframe>
 
-We looked at the distribution of the `mean_rating` column. It shows that the reviews on `food.com` are overwhemingly positive as most of the mean ratings are above 4 and more than half of the mean ratings are 5.
+We also looked at the distribution of the `'mean_rating'` column. It shows that the reviews on [food.com](https://https://www.food.com/) are overwhemingly positive as most of the mean ratings are above 4 and more than half of the mean ratings are 5.
 <iframe src="assets/mean_rating_hist.html" width=800 height=600 frameBorder=0></iframe>
 
 #### 2. Bivariate Distributions
-The scatter plot below shows the `mean_rating` column vs. the `calories` column. Due to the extremely negatively skewed mean ratings, we cannot conclude any meaningful correlation between `mean_rating` and `calories`. We also noticed some outliers in `calories`, which may also be a result of fake recipes like the one mentioned in the above section so we temporarily dropped rows with calories above  20,000 for a better view of the relationship.
+The scatter plot below shows the `'mean_rating'` column vs. the `'calories'` column. Due to the extremely negatively skewed mean ratings, we cannot conclude any meaningful correlation between `'mean_rating'` and `'calories'`. We also noticed some outliers in `'calories'`, which may also be a result of fake recipes like the one mentioned in the above section so we temporarily dropped rows with calories above 20,000 for a better understanding of the relationship.
 <iframe src="assets/rating_cal_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
-This second scatterplot shows the `calories` column vs. the `n_steps` column. As with the previous plot, we ignoed rows with calories above 20,000. Contrary to our intuition, recipes with more steps tend to have lower calories. This could still be due to the impact of outliers as there are many recipes with abnormally large calories.
+This second scatterplot shows the `'calories'` column vs. the `'n_steps'` column. As with the previous plot, we ignored rows with calories above 20,000. Contrary to our intuition, recipes with more steps tend to have lower calories. This could still be due to the impact of outliers as there are many recipes with abnormally large calories.
 <iframe src="assets/step_cal_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
-Here we see the conditional distribution of `mean_rating` for higher vs. lower calories. Again, for the sake of the analysis, we ignore all rows with calories higher than 20,000. We define "low calories" as calories lower than the median and "high calories" as higher than the median. We see that while the mean rating in both categories are still overwhemingly positive, lower calories food seem to have a larger varience in mean rating. This can be seen in the isolated blue bars around mean ratings of 1 - 3. We hypothesize that since the 'fake' recipes tend to have extreme calories, the recipes with lower calories are probably more legitimate, thus, having more meaningful ratings.
+Here we see the conditional distribution of `'mean_rating'` for higher vs. lower calories. Again, for the sake of the analysis, we ignore all rows with calories higher than 20,000. We define "low calories" as calories lower than the median and "high calories" as higher than the median. We see that while the mean rating in both categories are still overwhemingly positive, recipes with lower calories seem to have a larger varience in mean rating. This can be seen in the isolated blue bars around mean ratings of 1 - 3. We hypothesize that since the 'fake' recipes tend to have extreme calories, the recipes with lower calories are probably more legitimate, and thus have more meaningful ratings.
 
 _Note: the y-axis is in log scale for better visualization._
 <iframe src="assets/conditional_logcount.html" width=800 height=600 frameBorder=0></iframe>
 
 #### 3. Interesting Aggregates
-The histogram below shows the trend of average `minutes` when grouped by `n_ingredients`. For most of the plot, we can clearly see a positive correlation between average minutes requried for the recipe and the number of ingredients. The trend does not continue for number of ingredients higher than 28, however. This could be simply due to fewer recipes having more than 28 ingredients, thus, skewing the mean minutes for those recipes.
+The histogram below shows the trend of average `'minutes'` when grouped by `'n_ingredients'`. For most of the plot, we can clearly see a positive correlation between average minutes requried for the recipe and the number of ingredients. The trend does not continue for number of ingredients higher than 28, however. This could be simply due to fewer recipes having more than 28 ingredients, thus skewing the mean minutes for those recipes.
 <iframe src="assets/ingredients_minutes_line.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness
-We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
+We use the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
 |               |     0 |
 |:--------------|------:|
 | id            |     0 |
@@ -154,6 +154,7 @@ We get a p-value of 0.1205, which is greater than the significance level 0.05, a
 Now we return to our research question: 
 > Are recipes that are lower in saturated fat content more popular than recipes that are higher in saturated fat content?
 >
+
 Note that we use the `recipes` DataFrame for entirety of this section, specifically the `'n_reviews'` and `'saturated_fat'` columns. For the purposes of this analysis, we define a recipe to be popular if it has received more than the median number of reviews and recipes with less than the median number of reviews are categorized as unpopular; we add this categorization to `recipies` in a new column called `popularity`. We choose to use the number of reviews as a gauge for the popularity of a recipe instead of the mean rating because the ratings in this dataset are overwhelmingly high, and hence we believe that the mean ratings would not provide us with meaningful results for our question of interest because there is not much variability. The number of reviews allows us to estimate the number of people who attempted to make a specific recipe and we assume that most people evaluate the nutritional information when choosing which recipes to try. Thus, we say that the number of reviews is likely an accurate estimate of a recipe's popularity. Note that in this context, popularity does not equate to a positive review of a recipe, just the number of people attempted it.  
 
 Here is a boxplot of the distribution of saturated fat for popular versus unpopular recipes:
