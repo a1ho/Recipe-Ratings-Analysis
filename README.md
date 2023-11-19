@@ -87,10 +87,10 @@ We also looked at the distribution of the `'mean_rating'` column. It shows that 
 <iframe src="assets/mean_rating_hist.html" width=800 height=600 frameBorder=0></iframe>
 
 #### 2. Bivariate Distributions
-The scatter plot below shows the `'mean_rating'` column vs. the `'calories'` column. Due to the extremely negatively skewed mean ratings, we cannot conclude any meaningful correlation between `'mean_rating'` and `'calories'`. We also noticed some outliers in `'calories'`, which may also be a result of fake recipes like the one mentioned in the above section so we temporarily dropped rows with calories above 20,000 for a better understanding of the relationship.
+The scatter plot below shows the `'mean_rating'` column vs. the `'saturated_fat'` column. Due to the extremely negatively skewed mean ratings, we cannot conclude any meaningful correlation between `'mean_rating'` and `'saturated_fat'`. We also noticed some outliers in `'saturated_fat'`, which may also be a result of fake recipes like the one mentioned in the above section.
 <iframe src="assets/rating_fat_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
-This second scatterplot shows the `'calories'` column vs. the `'n_steps'` column. As with the previous plot, we ignored rows with calories above 20,000. Contrary to our intuition, recipes with more steps tend to have lower calories. This could still be due to the impact of outliers as there are many recipes with abnormally large calories.
+This second scatterplot shows the `'saturated_fat'` column vs. the `'n_steps'` column. Contrary to our intuition, recipes with more steps tend to have lower saturated fat. This could also be due to the impact of outliers as there are many recipes with abnormally high saturated fat content.
 <iframe src="assets/step_fat_scatter.html" width=800 height=600 frameBorder=0></iframe>
 
 Here we see the conditional distribution of `'mean_rating'` for higher vs. lower calories. Again, for the sake of the analysis, we ignore all rows with calories higher than 20,000. We define "low calories" as calories lower than the median and "high calories" as higher than the median. We see that while the mean rating in both categories are still overwhemingly positive, recipes with lower calories seem to have a larger varience in mean rating. This can be seen in the isolated blue bars around mean ratings of 1 - 3. We hypothesize that since the 'fake' recipes tend to have extreme calories, the recipes with lower calories are probably more legitimate, and thus have more meaningful ratings.
