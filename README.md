@@ -173,4 +173,7 @@ In order to analyze this question, we run a permutation test with difference in 
 Here is the plot of the results from our permutation test using 10,000 permutations:
 <iframe src="assets/hyp_test.html" width=800 height=600 frameBorder=0></iframe>
 
-We get a p-value of 0.0, which is lower than the significance level of 0.05, and therefore **we reject the null hypothesis**. From these results, we infer that many people may be concious of saturated fat content when trying new foods and likely avoid recipes that are high in saturated fat because they are believed to be quite unhealthy. This could also be the result of fake recipes people do not use or review having unreasonable high amounts of saturated fat.
+We get a p-value of 0.0, which is lower than the significance level of 0.05, and therefore **we reject the null hypothesis**. 
+
+### Conclusion
+From these results, we infer that many people may be concious of saturated fat content when trying new foods and likely avoid recipes that are high in saturated fat because they are believed to be quite unhealthy. This could also be the result of fake recipes people do not use or review having unreasonable high amounts of saturated fat.
