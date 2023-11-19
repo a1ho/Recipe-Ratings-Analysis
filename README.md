@@ -13,7 +13,7 @@
 
 ## Introduction 
 In the vast realm of culinary ... ; We explore this central question:
-> Are recipes that are lower in saturated fat content more popular among people than recipes that are higher in saturated fat content?
+> Are recipes that are lower in saturated fat content more popular than recipes that are higher in saturated fat content?
 >
 
 This research question seeks to explore whether individuals are concious about making healthy food choices when deciding on which recipes to try out. In essence, we are investigating whether recipes containing lower saturated fat contents are more popular amongst the general public than recipes higher in saturated fat. This research question may be of interest to people studying dietary habits and could provide insights into the factors influencing food choices in the ever-evolving landscape of nutrition and wellness.
@@ -99,15 +99,36 @@ The histogram below shows the trend of average `minutes` when grouped by `n_ingr
 <iframe src="assets/ingredients_minutes_line.html" width=800 height=600 frameBorder=0></iframe>
 
 ## Assessment of Missingness
-We used the `merged` DataFrame for the entirety of this section. Here is the count of missingness in the columns of `merged`:
-....
+We used the `merged` DataFrame for the entirety of this section. Here is the count of the missingness in the columns of `merged`:
+|               |     0 |
+|:--------------|------:|
+| id            |     0 |
+| name          |     1 |
+| description   |   114 |
+| minutes       |     0 |
+| calories      |     0 |
+| total_fat     |     0 |
+| sugar         |     0 |
+| sodium        |     0 |
+| protein       |     0 |
+| saturated_fat |     0 |
+| carbohydrates |     0 |
+| n_ingredients |     0 |
+| n_steps       |     0 |
+| rating        | 15036 |
+| review        |    58 |
+
 ### **NMAR Analysis**
 We believe that the `'description'` column is NMAR because perhaps certain recipes do not have much to descibe, and therefore are left blank. For example, recipes for foods such as cookies or hot chocolate may not require much of an explanation, and thus their recipes are note accompanied by a description. We can collect data on how common each food item is, since we believe that more popular/well-known dishes may not need a description while more uncommon foods, like those that are specific to a culture, may be more likely to require a description.
 
 ### **Missingness Dependency**
 From the missingness summary above, we notice that the `'rating'` column has a substantial amount of missing values as compared to the `'description'` and `'review'` columns. In this section, we conduct two separate permutation tests to analyze the dependence of the `'rating'` column's missingness on the `'saturated_fat'` column and the `'minutes'` column.
+
 #### 1. Rating and Saturated Fat
-For this permutation test we analyze if there is dependency between the missingness of the ratings and the saturated fat content. We use the difference in group means as our test statistic, as `'saturated_fat'` is numerical. For this test, we have the following:
+
+<iframe src="assets/fat_missing_box.html" width=800 height=600 frameBorder=0></iframe>
+
+The above plot shows the distribtuion of the `'saturated_fat'` column for missing and non-missing `'rating'`. For this permutation test we analyze if there is dependency between the missingness of the ratings and the saturated fat content. We use the difference in group means as our test statistic, as `'saturated_fat'` is numerical. For this test, we have the following:
 - **Null Hypothesis**: The saturated fat for recipes with missing ratings and recipes with non-missing ratings are drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) = 0).
 - **Alternate Hypothesis**: The mean saturated fat for recipes with missing ratings is greater than that of the recipes with non-missing ratings (i.e. group_mean(missing) - group_mean(non-missing) > 0).
 
@@ -117,7 +138,9 @@ Here is the plot of the results from our permutation test using 2000 permutation
 We get a p-value of 0.0, which is lower than the significance level 0.05, and therefore we reject the null hypothesis. As such, we can conclude that the missingness in the `'rating'` column is dependent on the `'saturated_fat'` column. In other words, **we conclude that ratings is MAR, conditional on saturated fat**.
 
 #### 2. Rating and Minutes
-For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the absolute difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
+<iframe src="assets/min_missing_box.html" width=800 height=600 frameBorder=0></iframe>
+
+The above plot shows the distribtuion of the `'minutes'` column for missing and non-missing `'rating'`. For this permutation test we analyze if there is dependency between the missingness of the ratings and the minutes each recipe takes to make. We use the difference in group means as our test statistic, as `'minutes'` is numerical. For this test, we have the following:
 - **Null Hypothesis**: The minutes for recipes with missing ratings and recipes with non-missing ratings are drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) = 0).
 - **Alternate Hypothesis**: The minutes for recipes with missing ratings and recipes with non-missing ratings are not drawn from the same distribution (i.e. group_mean(missing) - group_mean(non-missing) != 0).
 
@@ -126,4 +149,22 @@ Here is the plot of the results from our permutation test using 2000 permutation
 
 We get a p-value of 0.1205, which is greater than the significance level 0.05, and therefore we fail to reject the null hypothesis. As such, we cannot conclude that the missingness in the `'rating'` column is dependent on the `'minutes'` column. In other words, **we conclude that ratings is MCAR with respect to the minutes**.
 
+
 ## Hypothesis Testing
+Now we return to our research question: 
+> Are recipes that are lower in saturated fat content more popular than recipes that are higher in saturated fat content?
+>
+Note that we use the `recipes` DataFrame for entirety of this section, specifically the `'n_reviews'` and `'saturated_fat'` columns. For the purposes of this analysis, we define a recipe to be popular if it has received more than the median number of reviews and recipes with less than the median number of reviews are categorized as unpopular; we add this categorization to `recipies` in a new column called `popularity`. We choose to use the number of reviews as a gauge for the popularity of a recipe instead of the mean rating because the ratings in this dataset are overwhelmingly high, and hence we believe that the mean ratings would not provide us with meaningful results for our question of interest because there is not much variability. The number of reviews allows us to estimate the number of people who attempted to make a specific recipe and we assume that most people evaluate the nutritional information when choosing which recipes to try. Thus, we say that the number of reviews is likely an accurate estimate of a recipe's popularity. Note that in this context, popularity does not equate to a positive review of a recipe, just the number of people attempted it.  
+
+Here is a boxplot of the distribution of saturated fat for popular versus unpopular recipes:
+<iframe src="assets/popularity_box.html" width=800 height=600 frameBorder=0></iframe>
+
+In order to analyze this question, we run a permutation test with difference in group means as our test statistic, since the `'saturated fat'` column is numerical and from the plot above, the shape of the distributions look roughly the same. We choose a significance level of 0.05 and have the following hypotheses:
+- **Null Hypothesis**: The saturated fat content of popular recipes and unpopular recipes are from the same distribution (i.e. group_mean(unpopular) - group_mean(popular) = 0).
+- **Alternate Hypothesis**: The saturated fat content of popular recipes are lower than the saturated fat content of unpopular recipes (i.e. group_mean(unpopular) - group_mean(popular) > 0). 
+- **Test Statistic**: mean saturated fat of unpopular recipes - mean saturated fat of popular recipes
+
+Here is the plot of the results from our permutation test using 10,000 permutations:
+<iframe src="assets/hyp_test.html" width=800 height=600 frameBorder=0></iframe>
+
+We get a p-value of 0.0, which is lower than the significance level of 0.05, and therefore **we reject the null hypothesis**. From these results, we infer that many people may be concious of saturated fat content when trying new foods and likely avoid recipes that are high in saturated fat because they are believed to be quite unhealthy. This could also be the result of fake recipes people do not use or review having unreasonable high amounts of saturated fat.
